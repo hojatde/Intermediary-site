@@ -1,0 +1,15 @@
+body{
+    direction: rtl;
+}
+.test{
+  display: inline-block;
+  left:100px;
+  right: 100px;
+  top: 50px;
+  bottom: 50px;
+  position: relative;
+  top: 20px;
+  background-color: rgb(94, 168, 157);
+  padding: 10px;
+  border-radius: 2px;
+}

@@ -1,0 +1,128 @@
+<%- include('../../includes/header.ejs'); -%>
+<div class="container my-5">
+  <div class="row">
+    <div class="col-md-2">
+      <form class="form-inline" action="/products">
+        <div class="input-group mb-2">
+          <input
+            name="bookTitle"
+            type="text"
+            class="form-control"
+            id="bookTitle"
+            placeholder="عنوان کتاب"
+          />
+
+          <button type="submit" class="btn btn-secondary" id="searchButton">
+            جستجو
+          </button>
+          <div class="col-12" id="bookTitleError" style="display: none">
+            عنوان کتاب تنها شامل حروف و کارکتر فاصله است.
+          </div>
+        </div>
+      </form>
+      <div class="searchBar">
+        <h6 class="mt-3">جستجو بر اساس دسته بندی</h6>
+        <ul class="mainMenu">
+          <% for(let category of categories) { %>
+          <li>
+            <a href="/products?bookCategoryId=<%= category.title.replaceAll(' ','-') %>"
+              ><%= category.title %></a
+            >
+          </li>
+          <ul>
+            <% for(let category1 of category.childs) { %>
+            <li>
+              <span></span>
+              <a href="/products?bookCategoryId=<%= category.title.replaceAll(' ','-') %>"
+                >+<%= category1.title %></a
+              >
+            </li>
+            <ul>
+              <% for(let category2 of category1.childs) { %>
+              <li>
+                <a href="/products?bookCategoryId=<%= category.title.replaceAll(' ','-') %>"
+                  >+<%= category2.title %>
+                </a>
+              </li>
+              <% } %>
+            </ul>
+            <% } %>
+          </ul>
+          <% } %>
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-10 productsList">
+      <div class="row row-cols-1 row-cols-md-4">
+        <% for(let product of products) { %>
+        <div class="mb-3">
+          <div class="card">
+            <a
+              href="/product/<%= product.id %>/<%= product.title.replaceAll(' ','-') %>+<%= typeProduct %>"
+            >
+              <img
+                class="bd-placeholder-img card-img-top"
+                width="100%"
+                height="180"
+                alt="imageUrl"
+                src="/<%= product.imageUrl %>"
+              />
+            </a>
+            <div class="card-body">
+              <h5 class="card-title"><%= product.title %></h5>
+              <% if(typeof(typeProduct)==='undefined') { %>
+              <a
+                class="productLink"
+                href="/product/<%= product.id %>/<%= product.title.replaceAll(' ','-') %> "
+                >مشاهده</a
+              >
+              <% }else{ %>
+              <a
+                class="productLink"
+                href="/product/<%= product.id %>/<%= product.title.replaceAll(' ','-') %>+<%= typeProduct %>"
+                >مشاهده</a
+              >
+              <% } %>
+            </div>
+          </div>
+        </div>
+        <% } %>
+      </div>
+    </div>
+    <div class="row">
+      <ul class="pagination justify-content-center">
+        <li class="page-item <%= hasPreviousPage?'':'disabled' %>">
+          <a class="page-link" href="<%= previousPageUrl %>">صفحه قبل</a>
+        </li>
+        <li class="page-item <%= hasNextPage?'':'disabled' %>">
+          <a class="page-link" href="<%= nextPageUrl %> ">صفحه بعد</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function () {
+    const customRegex = /^[\u0600-\u06FF\sa-zA-Z]+$/;
+    // $("li").hover(function () {
+    //   $(this).next().show();
+    // });
+
+    // $(".mainMenu").mouseleave(function () {
+    //   $(".mainMenu").children("ul").hide();
+    //   $(".mainMenu").children("ul").children("ul").hide();
+    // });
+
+    $("#bookTitle").on("input", function () {
+      const enteredTitle = $(this).val();
+      if (enteredTitle.match(customRegex)) {
+        $("#searchButton").removeClass("disabled");
+        $("#bookTitleError").hide();
+      } else {
+        $("#searchButton").addClass("disabled");
+        $("#bookTitleError").show();
+      }
+    });
+  });
+</script>
+<%- include('../../includes/footer.ejs'); -%>

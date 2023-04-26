@@ -1,0 +1,105 @@
+<%- include('../../includes/header.ejs'); -%>
+<div class="container cardTitle my-5">
+  <div class="row">
+    <div class="col-12">
+      <a href="/product/<%= product.id %>/<%= product.title.replaceAll(' ','-') %>+<%= typeProduct %>">
+        <h3><%= product.title %></h3>
+        <br>
+      </a>
+      
+    </div>
+    <div class="col-md-8">
+      <h4>توضیحات<span>:</span></h4>
+      <p>
+        <%= product.description %>
+      </p>
+    </div>
+    <div class="col-md-3">
+      <img class="card-image" src="/<%= product.imageUrl %>" alt="">
+    </div>
+  </div>
+  <div class="row my-3">
+    <h5>برچسب ها:</h5>
+    <div>
+      <% for(let tag of product.Tags) { %>
+        <a class="link-secondary px-2" href="/products?tagTitle=<%= tag.title.toString().replaceAll(' ','-') %>"><%= tag.title %></a>
+      <% } %>  
+    </div>
+  </div>
+  <div class="row border-top pt-3">
+    <div class="col-12">
+      <h4>کتاب های مرتبط:</h4>
+
+      <div class="row row-cols-1 row-cols-md-5">
+        <% for(let product of realtedProducts) { %>
+        <div class="mb-3">
+          <div class="card">
+            <img
+              class="bd-placeholder-img card-img-top"
+              width="100%"
+              height="180"
+              alt="imageUrl"
+              src="/<%= product.imageUrl %>"
+            />
+            <div class="card-body">
+              <h5 class="card-title"><%= product.title %></h5>
+              <a class="productLink" href="/product?productId=<%= product.id %>"
+                >مشاهده</a
+              >
+            </div>
+          </div>
+        </div>
+        <% } %>
+      </div>
+    </div>
+  </div>
+  <div class="row border-top p-3">
+    <% if(!typeProduct && product.linkUrl && product.linkUrl.length>5) { %>
+      <form action="/verifyVisitProduct" class="row">
+        <input type="hidden" name="productId" value="<%= product.id %>">
+        <% if(errorMessege.length>0) { %>
+          <p class="alert alert-danger"><%= errorMessege %> </p>
+        <% } %>  
+        <div class="col-md-3">
+          <label for="code" id="codeLabel" class="col-12">برای مشاهده کتاب کد زیر را وارد کنید.</label>
+        </div>
+        <div class="col-6 col-md-2">
+          <input class="form-control" style="direction: ltr;" type="text" name="code" id="code">
+          <div class="col-12" id="codeError" style="display: none;">
+            کپچا تنها شامل اعداد است.
+          </div>
+        </div>
+        <div class="col-6 col-md-2">
+          <button class="btn btn-primary" id="sendButton">ارسال</button>
+        </div>
+      </form>
+    <% }else{ %>
+      <div>
+        <a class="btn btn-info" href="/download/<%= product.id %>/<%= product.title.replaceAll(' ','-') %>+<%= typeProduct %>">دانلود</a>
+      </div>
+    <% } %>   
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    const customRegex = /^[0-9]+$/
+
+    $.ajax({method:'get',url:'/captcha'})
+      .then(res=>{  
+        $('#codeLabel').after(res)
+      })
+    $('#code').on('input',function(){
+      const enteredCode = $(this).val()
+      if (enteredCode.match(customRegex)) {
+        $('#sendButton').removeClass('disabled')
+        $('#codeError').hide()
+
+      }else{
+        $('#sendButton').addClass('disabled')
+        $('#codeError').show()
+
+      }
+    })
+  })
+</script>
+<%- include('../../includes/footer.ejs'); -%>

@@ -1,0 +1,47 @@
+<%- include('../../includes/header.ejs'); -%>
+<div class="container my-5">
+  <% if(errorMessage.length>0) { %>
+    <p class="alert alert-danger"><%= errorMessage %></p>
+  <% } %>   
+  <div class="row p-3">
+      <form action="/download/<%= product.id %>/<%= product.title.replaceAll(' ','-')%>+<%= typeProduct %>" class="row" method="post">
+        <input type="hidden" name="productId" value="<%= product.id %>">
+        <div class="col-md-3">
+          <label for="code" id="codeLabel" class="col-12">برای مشاهده کتاب کد زیر را وارد کنید.</label>
+        </div>
+        <div class="col-6 col-md-2">
+          <input class="form-control" style="direction: ltr;" type="text" name="code" id="code">
+          <div class="col-12" id="codeError" style="display: none;">
+            کپچا تنها شامل اعداد است.
+          </div>
+          <div class="col-12" id="codeLengthError" style="display: none;">
+            کد کپچا شامل 4 رقم است.
+          </div>
+        </div>
+        <div class="col-6 col-md-2">
+          <button class="btn btn-primary" id="sendButton">ارسال</button>
+        </div>
+      </form>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    const customRegex = /^[0-9]+$/
+
+    $.ajax({method:'get',url:'/captcha'})
+      .then(res=>{  
+        $('#codeLabel').after(res)
+      })
+    $('#code').on('input',function(){
+      const enteredCode = $(this).val()
+      if (enteredCode.match(customRegex)) {
+        $('#sendButton').removeClass('disabled')
+        $('#codeError').hide()
+      }else{
+        $('#sendButton').addClass('disabled')
+        $('#codeError').show()
+      }
+    })
+  })
+</script>
+<%- include('../../includes/footer.ejs'); -%>

@@ -1,0 +1,10 @@
+<%- include('../includes/header.ejs'); -%>
+<div class="container">
+    <div class="row mt-5 mx-auto">
+        <% if(errorMessege.length>0) { %>
+            <p class="alert alert-danger"><%= errorMessege[0] %></p>
+        <% } %>  
+        <h1 class="text-center">تلاش برای دسترسی غیر مجاز</h1>
+    </div>
+</div>
+<%- include('../includes/footer.ejs'); -%>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head dir="rtl">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./js/jquery-3.6.1.map.js"></script>
+    <script src="./js/bootstrap.bundle.min.js"></script>
+
+    <link rel="stylesheet" href="./css/bootstrap.rtl.min.css" />
+    <link rel="stylesheet" href="main.css" />
+
+    <title>Document</title>
+  </head>
+  <body>
+    
+    <div>
+      <p>saddddddddddddddddddddddddddddd</p>
+      <p>saddddddddddddddddddddddddddddd</p>
+      <p>saddddddddddddddddddddddddddddd</p>
+      <p>saddddddddddddddddddddddddddddd</p>
+      <p>saddddddddddddddddddddddddddddd</p>
+      <p>saddddddddddddddddddddddddddddd</p>
+      <p>saddddddddddddddddddddddddddddd</p>
+      <p>saddddddddddddddddddddddddddddd</p>
+      <p>saddddddddddddddddddddddddddddd</p>
+      <p>saddddddddddddddddddddddddddddd</p>
+      <p>saddddddddddddddddddddddddddddd</p>
+      <p>saddddddddddddddddddddddddddddd</p>
+     <p>saddddddddddddddddddddddddddddd</p>
+    </div>
+    <div class="test">
+      <p>salam</p>
+    </div>
+    <div>
+      <p>saddddddddddddddddddddddddddddd</p>
+      <p>saddddddddddddddddddddddddddddd</p>
+      <p>saddddddddddddddddddddddddddddd</p>
+      <p>saddddddddddddddddddddddddddddd</p>
+      <p>saddddddddddddddddddddddddddddd</p>
+      <p>saddddddddddddddddddddddddddddd</p>
+      <p>saddddddddddddddddddddddddddddd</p>
+      <p>saddddddddddddddddddddddddddddd</p>
+      <p>saddddddddddddddddddddddddddddd</p>
+      <p>saddddddddddddddddddddddddddddd</p>
+      
+    </div>
+    <script>
+        $(document).ready(function(){
+            $('li').hover(function(){
+                $(this).next().show()
+            })
+
+            $('.mainMenu').mouseleave(function(){
+                $('.mainMenu').children('ul').hide()
+                $('.mainMenu').children('ul').children('ul').hide()
+
+            })
+            
+        })
+    </script>
+  </body>
+</html>
