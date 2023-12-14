@@ -1,5 +1,6 @@
 # Intermediary-site
 سایت فروش کتاب
+mvc architecture
 backend : express - ts -  database orm => sequelize - uploader=>multer - authentication=>session 
 fornt html css bootstrap
 
