@@ -1,11 +1,12 @@
 # Intermediary-site
-سایت واسطه با هدف افزایش بازدید سایت اصلی
-backend express ejs
-fornt html css
+سایت فروش کتاب
+backend : express - ts -  database orm => sequelize - uploader=>multer - authentication=>session 
+fornt html css bootstrap
 
-مدیر عنوان و تصویر محصول اصلی را ثبت کرده و لینکی که حاوی آدرس محصول اصلی است را درج میکند
-برای دسترسی به لینک اصلی:
-1-کاربر بلافاصله بعد از کلیک روی مشاهده محصول به لینک اصلی هدایت شود
-2-بعد از کلیک روی مشاهده محصول و وارد کردن کد کپچا
+Define several different subdomains
+Determining the color of the template from the database
+Site settings are taken from the database
+Users will be directed to the main site by clicking on the products
+Captcha request from the user with the aim of bypassing the Google bot
 
-هر وبسایت بر اساس دامین config مخصوص خود را دارد.
+
